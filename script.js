@@ -50,7 +50,9 @@ function updateTurn() {
     h1.innerText = `${player2.value}, you're up!`;
   }
 }
-
+function CheckDraw(){
+ return( gameState.every((index)=>index!==null));
+}
 
 function insertData(event) {
   const cell = event.target;
@@ -121,7 +123,19 @@ function insertData(event) {
 
       return;
     }
-  
+    if(CheckDraw()){
+     setTimeout(() => {
+      alert("It's a Draw");
+      currentPlayer = "X";
+      gameState = Array(9).fill(null);
+
+      // Remove existing elements and set up the game board again
+      document.body.appendChild(h1);
+      tictactoe();
+      updateTurn();
+     }, 500);
+    }
+
     currentPlayer = currentPlayer === "O" ? "X" : "O";
     updateTurn();
   }
